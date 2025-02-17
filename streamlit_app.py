@@ -46,24 +46,11 @@ def fetch_admit_card(enroll_no):
 
 
 # Function to generate a PDF from HTML content
-def generate_pdf(html_content):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    pdf.multi_cell(0, 10, html_content)
-    
-    # Make a directory to save the PDF if it doesn't exist
-    if not os.path.exists('generated_files'):
-        os.makedirs('generated_files')
-    
-    pdf_output = os.path.join("generated_files", "admit_card.pdf")
-    pdf.output(pdf_output)
-    return pdf_output
 
 
 # Streamlit App Configuration
 st.set_page_config(page_title="Admit Card Viewer", layout="centered")
-st.title("🎓 Admit Card Viewer")
+st.title("🎓 BTEUP Admit Card Viewer")
 
 # Input field for Enrollment Number
 enroll_no = st.text_input("Enter Enrollment Number:", "")
@@ -73,21 +60,11 @@ if st.button("Submit") and enroll_no:
     modified_html = fetch_admit_card(enroll_no)
 
     if modified_html:
-        st.subheader("Admit Card Preview:")
+        st.subheader("CLICK PRINT TO PRINT YOUR Admit Card :")
         
         # Display the full modified HTML in Streamlit
-        st.components.v1.html(modified_html, height=600, scrolling=True)
+        st.components.v1.html(modified_html, height=800,scrolling=True)
 
-        # Option to download as PDF
-        if st.button("Download as PDF"):
-            # Use the print button code (simulating the same functionality)
-            pdf_file = generate_pdf(modified_html)
-            with open(pdf_file, "rb") as f:
-                st.download_button(
-                    label="Download PDF",
-                    data=f,
-                    file_name="admit_card.pdf",
-                    mime="application/pdf"
-                )
+       
     else:
         st.error("❌ Admit Card Not Found! Please check the enrollment number.")
