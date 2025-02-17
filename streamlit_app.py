@@ -21,7 +21,8 @@ def fetch_admit_card(enroll_no):
         # Find and modify img tags
         img_photo = soup.find("img", {"id": "imgphoto"})
         img_sign = soup.find("img", {"id": "imgsign"})
-        img_barcode = soup.find("img", {"id": "imgBarcode"})
+        img_logo = soup.find("img", {"class": "auto-style3"})
+        img_barcode = soup.find("img", {"id": "imgBarCode1"})
 
         if img_photo:
             img_photo["src"] = photo_url
@@ -31,15 +32,13 @@ def fetch_admit_card(enroll_no):
             img_sign["src"] = sign_url
             img_sign["style"] = "border-color:Black;border-width:1px;border-style:Solid;height:1cm;width:2.5cm;"
 
-        if img_barcode:
-            img_barcode["src"] = barcode_url
-            img_barcode["style"] = "height:1cm;width:4cm;"
-
-        # Modify the logo
-        img_logo = soup.find("img", {"id": "imgLogo"})
         if img_logo:
             img_logo["src"] = logo_url
             img_logo["style"] = "height:2cm;width:3cm;"
+
+        if img_barcode:
+            img_barcode["src"] = barcode_url
+            img_barcode["style"] = "height:1cm;width:4cm;"
 
         return str(soup)  # Return modified HTML as string
     else:
